@@ -17,7 +17,7 @@
 #Enter the following parameters. Put all entries inside the quotes.
 ##########################################################################################################
 
-$strVCenter = ''
+$strVCenter = 'server.domain.tld'
 $strVCUser = 'user@vsphere.local'
 $strVCPass = 'somethingstrong'
 $strLogFolder = 'C:\scripts\logs\'
@@ -35,7 +35,7 @@ $strLogFile = '-space-reclaim.txt'
 If (!(Test-Path -Path $strLogFolder)) { New-Item -ItemType Directory -Path $strLogFolder }
 $strLogFile = $strLogFolder + (Get-Date -Format yyyy-MM-dd-%H-mm-ss) + $strLogFile
 
-Add-Content $strLogFile 'Capital Data VMware VMFS Space Reclaim Script v1.1'
+Add-Content $strLogFile 'Capital Data VMware VMFS Space Reclaim Script'
 Add-Content $strLogFile '##########################################################################################################'
 Add-Content $strLogFile ((Get-Date -Format o ) + ': Script Started')
 
@@ -79,8 +79,7 @@ foreach ($objDatastore in $objDatastores)
     }
     else
     {
-        $objLUN = $objDatastore.ExtensionData.Info.Vmfs.Extent.DiskName | select-object -last 1  | Out-Null
-        $objDatastore.ExtensionData.Info.Vmfs.Extent.DiskName  | Out-Null
+        $objLUN = $objDatastore.ExtensionData.Info.Vmfs.Extent.DiskName | select-object -last 1
         $objESXcli=Get-Esxcli -VMHost $objESX
         Add-Content $strLogFile ((Get-Date -Format o ) + ': The datastore named ' + $objDatastore + ' is being evaluated.')
         Add-Content $strLogFile ((Get-Date -Format o ) + ': The ESXi Host named ' + $objESX + ' will run the space reclaim operation')
