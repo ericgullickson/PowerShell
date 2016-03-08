@@ -7,6 +7,7 @@
 #
 #v1.0 - Just wrote it for Dell Compellent
 #v1.1 - Changed logic to support Dell Compellent, Dell EqualLogic, EMC VMAX, EMC VNX, HDS, NetApp, Pure. 
+#v1.2 - Added XtremIO
 #
 #Requirements:
 # VMware PowerCLI
@@ -89,6 +90,7 @@ foreach ($objDatastore in $objDatastores)
         switch -wildcard ($objLUN) 
             { 
                 "naa.6000d310*" { $strArrayVendor = "Dell Compellent"; break} 
+                "naa.514f0c56*" { $strArrayVendor = "EMC XtremIO"; break}
                 "naa.60060160*" { $strArrayVendor = "EMC VNX"; break} 
                 "naa.60060e80*" { $strArrayVendor = "Hitachi Data Systems"; break} 
                 "naa.60060480*" { $strArrayVendor = "EMC VMAX"; break} 
